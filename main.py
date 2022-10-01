@@ -1,9 +1,16 @@
 from flask import Flask, render_template
 from datetime import datetime
+import json #импорт библиотеки для работы с json
 
 app = Flask(__name__)  # создали сервер
 all_messages = []  # переменная где храниться вся история чата
+DB_FILE = 'db.json'
 
+
+def load_messanges(): #функция для загрузки сообщений из файла db.json
+    with open(DB_FILE, 'r') as json_file:
+        data = json.load(json_file)
+    return  data['messages']
 
 @app.route('/')  # @ аннотация указывает на какую страницу должна вести ссылка
 def index_page():
