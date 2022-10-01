@@ -7,13 +7,16 @@ all_messages = []  # переменная где храниться вся ис�
 DB_FILE = 'db.json'
 
 
-def load_messanges():  # функция для загрузки сообщений из файла db.json
+def load_messages():  # функция для загрузки сообщений из файла db.json
     with open(DB_FILE, 'r') as json_file:
         data = json.load(json_file)
     return data['messages']
 
 
-def save_messages(): # функ сохраняет историю в json файл
+all_messages = load_messages()  # загрузили сообщения
+
+
+def save_messages():  # функ сохраняет историю в json файл
     data = {'messages': all_messages}
     with open(DB_FILE, 'w') as json_file:
         json.dump(data, json_file)
@@ -37,6 +40,16 @@ def add_message(sender, text):
         'time': datetime.now().strftime('%H:%M')
     }
     all_messages.append(new_message)  # append - добавлет сообщение в список all_messages
+    save_messages()
+
+
+@app.route('/send_message')  # http://127.0.0.1:5000/send_message?name=Vlad&text=Hello
+def send_message():  # функ которая отправляет сообщение
+    sender = request.args['name']
+    text = request.args['text']
+    add_message(sender, text)
+    save_messages()
+    return "OK"
 
 
 # функция печати сообщения
@@ -49,13 +62,6 @@ def print_message(message):
 def print_all_message(message_list):
     for msg in message_list:  # запускаем цикл по каждому значению в списке message_list
         print_message(msg)
-
-
-@app.route('/send_message') # http://127.0.0.1:5000/send_message?name=Vlad&text=Hello
-def send_message(): # функ которая отправляет сообщение
-    sender = request.args['name']
-    text = request.args['text']
-    add_message(sender, text)
 
 
 # add_message('Влад', 'Привет как дела?')
