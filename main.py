@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from datetime import datetime
 
 app = Flask(__name__)  # создали сервер
@@ -8,6 +8,10 @@ all_messages = []  # переменная где храниться вся ис�
 @app.route('/')  # @ аннотация указывает на какую страницу должна вести ссылка
 def index_page():
     return 'Hello word!'
+
+@app.route('/chat') # ссылка на дисплей чата
+def dispay_chart(): # отобразить наш чат по шаблону из  templates/form.htm
+    return render_template('form.html')
 
 
 # функция для добавления сообщения в список сообщений
