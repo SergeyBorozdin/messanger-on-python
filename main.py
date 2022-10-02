@@ -74,3 +74,4 @@ def get_messages():  # получаем списком все сообщения
 
 
 app.run()  # запустили сервер
+# https://live.skillbox.ru/webinars/code/pishem-interfeis-messendzhera-na-python011022/?utm_source=expertsender&utm_medium=email&utm_campaign=all_all_expertsender_email_invite1_intensive-564-2022-09_all_code_skillbox&utm_content=2022-10-01&utm_term=intensive_posting_old
